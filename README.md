@@ -2,8 +2,8 @@
 
 This repository contains functions used to analyze ChIP-seq data from the following articles:  
 
-    - Yu X\*, Martin PGP\*, Michaels SD. (\* co-first authors). BORDER proteins protect expression of neighboring genes by promoting 3' Pol II pausing in plants. Nat Commun. 2019 Sep 25;10(1):4359. doi: 10.1038/s41467-019-12328-w. [View or Download](https://rdcu.be/cux4Z)
-    - Yu X\*, Martin PGP\*, Zhang Y, Trinidad JC, Xu F, Huang J, Thum KE, Li K, Shao S, Gu Y, Wang X, Michaels SD. (\* co-first authors). *Manuscript in preparation*
+  - Yu X\*, Martin PGP\*, Michaels SD. (\* co-first authors). BORDER proteins protect expression of neighboring genes by promoting 3' Pol II pausing in plants. Nat Commun. 2019 Sep 25;10(1):4359. doi: 10.1038/s41467-019-12328-w. [View or Download](https://rdcu.be/cux4Z)  
+  - Yu X\*, Martin PGP\*, Zhang Y, Trinidad JC, Xu F, Huang J, Thum KE, Li K, Shao S, Gu Y, Wang X, Michaels SD. (\* co-first authors). *Manuscript in preparation*  
 
 We usually prepare our sequencing libraries with [NEBNext Ultra II](https://international.neb.com/products/e7645-nebnext-ultra-ii-dna-library-prep-kit-for-illumina) DNA library prep kits (NEB E7645) and sequence them in paired end mode in order to have information on the fragment sizes.
 
