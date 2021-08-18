@@ -113,7 +113,7 @@ Various QC can be generated for example with:
 
 The number of reads before (or after) filtering can be easily obtained with:
 
-    `ReadsBefore=$(samtools view -c ${bamfile_before_filtering})`
+    ReadsBefore=$(samtools view -c ${bamfile_before_filtering})
 
 
 ## Calculate coverage and generate genome browser tracks
@@ -131,3 +131,13 @@ With multiple files, I use the script [`ExportCoverageAsBigWig_args.r`](ExportCo
 
 
 ## Extract signal at specific windows
+
+The [GenomicRanges](http://www.bioconductor.org/packages/release/bioc/html/GenomicRanges.html) package from [Biocconductor](http://www.bioconductor.org/) makes it straightforward to extract the signal from a genome-wide coverage at specific windows (e.g. around the TSS, along the gene bodies, etc.).  
+Examples of such "windows of interest" (WOI) for Arabidopsis thaliana are provided in the [Ath_TAIR10_woi](Ath_TAIR10_woi) folder.  
+The script [`profcomp_args.r`](profcomp_args.r) allows to automate the process for one or several signal files and takes care to reverse the signal based on the strand indicated in the WOI file.  
+
+
+## Signal binning
+
+
+
