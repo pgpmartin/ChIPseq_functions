@@ -10,7 +10,8 @@ We usually prepare our sequencing libraries with [NEBNext Ultra II](https://inte
 # General workflow
 
 ## Initial QC
-QC on raw reads are obtained with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+QC on raw reads are obtained with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).  
+They can be nicely combined across multiple samples using [multiQC](https://multiqc.info/)
 
 ## Trimming
 To multiplex samples we often use [NEBNext single index oligos](https://international.neb.com/tools-and-resources/selection-charts/nebnext-multiplex-oligos-selection-chart).  
@@ -32,7 +33,9 @@ For a paired-end run the typical command is:
         SLIDINGWINDOW:4:15 \
         MINLEN:20 \
         ;
-        
+
+It's a good idea to generate QC reports also after trimming.
+
 ## Alignment
 For ChIP-seq I generally use [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml).  
 The typical command is:  
@@ -100,4 +103,15 @@ Reads with the following characteristics are removed (`-F 1804`):
   - mate is unmapped
 
 To adapt these filters to your needs, see [Explain SAM flags](https://broadinstitute.github.io/picard/explain-flags.html)
+<br/>
+Various QC can be generated for example with:
+
+  - [multiQC](https://multiqc.info/)
+  - `samtools idxstats`
+  - `samtools flagstat`
+  - `samtools stats` followed by the `plot-bamstats` function
+
+The number of reads before (or after) filtering can be easily obtained with `ReadsBefore=$(samtools view -c ${bamfile_before_filtering})`
+
+## Calculate coverage and generate genome browser tracks
 
