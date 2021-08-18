@@ -15,7 +15,7 @@ QC on raw reads are obtained with [fastqc](https://www.bioinformatics.babraham.a
 ## Trimming
 To multiplex samples we often use [NEBNext single index oligos](https://international.neb.com/tools-and-resources/selection-charts/nebnext-multiplex-oligos-selection-chart).  
 For each sample, we build a file containing the sequence of potential adapters that may contaminate the reads.  
-For single index, the adapter file is built from the `oligoBase_SingleIndex.fa` in which we replace the first oligo with the appropriate index oligo obtained from `NEBNext_Multiplex_Oligos.fasta`
+For single index, the adapter file is built from the `oligoBase_SingleIndex.fa` in which we replace the first oligo with the appropriate index oligo obtained from `NEBNext_Multiplex_Oligos.fasta`  
 <br/>
 Residual adapter sequences are removed using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)  
 
