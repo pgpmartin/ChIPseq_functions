@@ -139,5 +139,10 @@ The script [`profcomp_args.r`](profcomp_args.r) allows to automate the process f
 
 ## Signal binning
 
+We the signal is extracted from windows of different sizes (e.g. gene bodies), it may be necessary to calculate the average signal over bins of variable sizes (e.g. 100 bins along the gene body).  
+Even for windows of fixed sizes (e.g. TSS +/- 2kb), it can be useful to summarize the signal over bins of fixed sizes (e.g. 10bp bins) when bp-level signal is not necessary (e.g. to plot heatmaps).  
+The script [BinFeatureProfiles_args.r](BinFeatureProfiles_args.r) performs such "signal binning".  
+In addition the script [BinFeatureProfiles_WithTrimming_args.r](BinFeatureProfiles_WithTrimming_args.r) is a slighty modified version that allows to perform the binning only on a specific part of the windows.  
+For example if we extracted the signal at TSS +/- 2kb, we have 4001 values. We may want to bin only the first 2000 values corresponding to the signal before the TSS.
 
 
