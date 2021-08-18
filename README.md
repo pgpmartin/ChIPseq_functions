@@ -111,7 +111,23 @@ Various QC can be generated for example with:
   - `samtools flagstat`
   - `samtools stats` followed by the `plot-bamstats` function
 
-The number of reads before (or after) filtering can be easily obtained with `ReadsBefore=$(samtools view -c ${bamfile_before_filtering})`
+The number of reads before (or after) filtering can be easily obtained with:
+
+    `ReadsBefore=$(samtools view -c ${bamfile_before_filtering})`
+
 
 ## Calculate coverage and generate genome browser tracks
 
+The script [`GetCoveragesFromBAMPE_args.r`](GetCoveragesFromBAMPE_args.r) calculates the coverage of ChIP fragments along the chromosomes.  
+Furthermore, it allows:
+
+  - to filter the fragments based on their size (`minFragSize` and `maxFragSize` arguments)  
+  - to resize the fragments to a fixed length (`resizeLength`)
+  - to select specific chromosomes (e.g. excluding mitochondrial or plastid chromosomes) via the `chromSizes` argument. [Ath_STDchromSizes.rds](Ath_STDchromSizes.rds) is an example of such rds file for Arabidopsis thaliana (use `readRDS` function in R to import this file).
+  - to obtain both raw coverage and normalized coverage ("Read-per-million" normalization possibly adjusted by a multiplication factor)
+
+The obtained coverage can be easily exported as a [bigWig](https://genome.ucsc.edu/goldenpath/help/bigWig.html) track file using the [rtracklayer](http://www.bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.  
+With multiple files, I use the script [`ExportCoverageAsBigWig_args.r`](ExportCoverageAsBigWig_args.r) to automate the task.
+
+
+## Extract signal at specific windows
