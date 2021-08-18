@@ -7,7 +7,7 @@ This repository contains functions used to analyze ChIP-seq data. They were used
 
 We usually prepare our sequencing libraries with [NEBNext Ultra II](https://international.neb.com/products/e7645-nebnext-ultra-ii-dna-library-prep-kit-for-illumina) DNA library prep kits (NEB E7645) and sequence them in paired end mode in order to have information on the fragment sizes.
 
-# General workflow
+# Workflow
 
 ## Initial QC
 QC on raw reads are obtained with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).  
@@ -143,17 +143,33 @@ We the signal is extracted from windows of different sizes (e.g. gene bodies), i
 Even for windows of fixed sizes (e.g. TSS +/- 2kb), it can be useful to summarize the signal over bins of fixed sizes (e.g. 10bp bins) when bp-level signal is not necessary (e.g. to plot heatmaps).  
 The script [BinFeatureProfiles_args.r](BinFeatureProfiles_args.r) performs such "signal binning".  
 <br/>
-In addition the script [BinFeatureProfiles_WithTrimming_args.r](BinFeatureProfiles_WithTrimming_args.r) is a slighty modified version that allows to perform the binning only on a specific part of the windows.  
-For example if we extracted the signal at TSS +/- 2kb, we have 4001 values. We may want to bin only the first 2000 values corresponding to the signal before the TSS.  
+In addition the script [BinFeatureProfiles_WithTrimming_args.r](BinFeatureProfiles_WithTrimming_args.r) is a slighty modified version that performs the binning only on a specific part of the windows.  
+For example if we extracted the signal at TSS +/- 2kb, we have 4001 values for each gene. We may want to bin only the first 2000 values corresponding to the signal before the TSS.  
 <br/>
 After binning, it is possible to reassemble profiles in order to plot e.g. metagene profiles or heatmaps. For example, we can assemble :
 
   1. The signal (without binning) for 2kb upstream of the TSS up to the TSS
   2. The binned signal along the gene body
-  3. The signal (without binning) for the TES (transcript end site, or PAS for polyadenylation site) up to 2kb after the TES
+  3. The signal (without binning) for the TES (transcript end site sometimes refered to as PAS for polyadenylation site) up to 2kb after the TES
 
 This generates data that can be stored in a matrix (genes in row and positions in columns) or in an RleList.
 
 
-## Calculate average profiles (and confidence intervals)
- 
+## Calculate average profiles (and confidence intervals) for specific groups of genes
+
+The script [`GetAvgProfileForGeneGroups_args.r`](GetAvgProfileForGeneGroups_args.r) calculates average profiles and the associated confidence intervals for different groups of genes (provided as a named list of gene names).  
+The scripts accepts a limited number of arguments for simplicity but the functions within the script accept more options.  
+In particular:
+
+  - By default the data matrix is winsorized to reduce the effect of extreme values above the 99.99th percentile. This can be adjusted as needed to limit (or not) the impact of extremely high or low values.  
+  - Confidence intervals can be calculated either based on a normal assumption or using bootstrap as in the [ChIPseeker](http://www.bioconductor.org/packages/release/bioc/html/ChIPseeker.html) package. Practically, they're expected to give very simiar results when the number of genes is large enough but the bootstrap CI are much longer to calculate.  
+  - By default, the profiles are not normalized within the defined window but two normalization options are available which may be necessary to compare profiles from different ChIPs (`"freq"`) or for windows of different width (`"avg"`)
+
+
+## Plotting
+
+The data is generally plotted as:
+
+  - "metagene profiles" representing the average signal for groups of genes along with confidence intervals. I use [ggplot2](https://ggplot2.tidyverse.org/) to do this
+  - "heatmaps". I use [EnrichedHeatmap](https://bioconductor.org/packages/release/bioc/html/EnrichedHeatmap.html) / [ComplexHeatmap](https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html) to do this
+
